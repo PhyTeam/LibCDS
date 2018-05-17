@@ -2,7 +2,7 @@
 #include <future>
 #include <functional>
 #include <memory>
-#include <gtest/gtest.h>
+
 #include <vector>
 
 #include "priorityqueue.h"
