@@ -107,9 +107,9 @@ TEST(PriorityQueue, pushAndPopShouldWorkProperly)
     cout << endl;
 
     cout << "Testing leak memory" << endl;
-    PriorityQueue<int, MyObject*, SingleThreaded> myqueue;
-    myqueue.push(1, new MyObject(1));
-    myqueue.push(2, new MyObject(2));
+//    PriorityQueue<int, MyObject*, SingleThreaded> myqueue;
+//    myqueue.push(1, new MyObject(1));
+//    myqueue.push(2, new MyObject(2));
 }
 
 int main(int argc, char **argv) {
