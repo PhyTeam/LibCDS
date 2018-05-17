@@ -8,6 +8,7 @@
 #include "priorityqueue.h"
 
 #include <iostream>
+#include <gtest/gtest.h>
 
 using namespace std;
 using namespace Concurrency;
