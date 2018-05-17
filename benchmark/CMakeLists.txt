@@ -1,0 +1,1 @@
+add_executable(priority_queue priority_queue.cpp)
