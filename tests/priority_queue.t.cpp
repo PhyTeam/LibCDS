@@ -28,6 +28,11 @@ struct MyObject
         cout << "Dtor " << i << endl;
         instance_counter--;
     }
+
+    bool operator < (const MyObject& o2)
+    {
+        return this->i < o2.i;
+    }
 };
 
 int MyObject::instance_counter = 0;
