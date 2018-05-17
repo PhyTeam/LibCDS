@@ -58,7 +58,9 @@ private:
 
 #define DEFAULT_MUTEX_POLICY Mutex
 
-class Object {};
+
+class Object
+{};
 
 template<class Host = Object, class MutexPolicy = DEFAULT_MUTEX_POLICY>
 class SingleThreaded
@@ -79,21 +81,18 @@ protected:
     struct Lock
     {
     public:
-        explicit Lock(Host& host) : host_(host)
+        explicit Lock(Host* host)
         {
-            host_.mtx_.Lock();
-        }
-        explicit Lock(Host* host) : host_(*host)
-        {
-            host_.mtx_.Lock();
+            host_ = reinterpret_cast<ObjectLockable<Host, MutexPolicy>*>(host);
+            host_->mtx_.Lock();
         }
 
         ~Lock()
         {
-            host_.mtx_.Unlock();
+            host_->mtx_.Unlock();
         }
     private:
-        Host& host_;
+        ObjectLockable<Host, MutexPolicy>* host_;
         Lock() {}
     };
 protected:
@@ -101,7 +100,7 @@ protected:
 };
 
 template <class T, template <class Object, class MutexPolicy> class ThreadingModel>
-class Container : ThreadingModel<Object, DEFAULT_MUTEX_POLICY>, public Object
+class Container : protected ThreadingModel<Object, DEFAULT_MUTEX_POLICY>, public Object
 {
 public:
    using typename ThreadingModel<Object, DEFAULT_MUTEX_POLICY>::Lock;
@@ -121,7 +120,7 @@ public:
 };
 
 template <class K, class T, template<class Object, class MutexPolicy> class ThreadingModel, class _Compare = std::less<K>, class MutexPolicy = DEFAULT_MUTEX_POLICY>
-class PriorityQueue : ThreadingModel<Object, MutexPolicy> , public Object
+class PriorityQueue : protected ThreadingModel<Object, MutexPolicy> , public Object
 {
 private:
     typedef T 			container_value_type;
@@ -170,7 +169,7 @@ public:
         // TODO: implementation
     }
 
-    bool empty() { Lock _lock(*this); return __data.empty(); }
+    bool empty() { Lock _lock(this); return __data.empty(); }
 
     container_size size()
     {

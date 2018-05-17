@@ -5,7 +5,7 @@ function(build_test test_name)
     include_directories(${SRC_DIR})
     add_executable(${test_name}_test ${ARGN})
 
-    target_link_libraries(${test_name}_test pthread gtest gmock gtest_main)
+    target_link_libraries(${test_name}_test pthread gtest gtest_main)
     add_test(${test_name} ./${test_name}_test)
 endfunction()
 

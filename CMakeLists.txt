@@ -20,10 +20,12 @@ set(SOURCE
 enable_testing()
 add_subdirectory(thirdparty/googletest)
 
+add_subdirectory(tests)
+
+add_subdirectory(benchmark)
+
 
 add_library(${PROJECT_NAME} ${HEADER} ${SOURCE})
 target_link_libraries(${PROJECT_NAME} ${LIB})
 
-add_subdirectory(tests)
 
-add_subdirectory(benchmark)
