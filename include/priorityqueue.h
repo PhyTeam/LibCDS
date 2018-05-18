@@ -157,7 +157,6 @@ private:
     typedef typename std::priority_queue<std::reference_wrapper<container_single_queue>, std::vector<std::reference_wrapper<container_single_queue>>, PriorityQueueCompare> container_mutiple_queue;
     container_mutiple_queue __data;
     container_set 			__set;
-    std::priority_queue<container_value_type, std::vector<container_value_type>, _Compare> _data;
 public:
     PriorityQueue() {}
     PriorityQueue(const PriorityQueue&) {} // copy constructor
